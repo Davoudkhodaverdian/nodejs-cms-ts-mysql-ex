@@ -31,11 +31,8 @@ db.connect(function (err) {
     
     db.query("ALTER TABLE authusers AUTO_INCREMENT=1000000001", function (err, result) {
       if (err) throw err;
-     
-  
-    
     });
-  
+    
   });
 });
 

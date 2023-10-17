@@ -1,6 +1,6 @@
 import express from 'express';
 import validators from '../../../../http/controllers/api/auth/login/validators';
-import validateExpress from '../../../../http/controllers/validation';
+import validateExpress from '../../../../http/validation';
 import login from '../../../../http/controllers/api/auth/login';
 
 const router = express.Router();

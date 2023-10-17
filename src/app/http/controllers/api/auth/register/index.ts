@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import db from '../../../../../setup/mysqlConnection';
 import bcrypt from 'bcrypt';
-import createToken from '../../../createToken';
-
+import createToken from '../../../../createToken';
+import transform from './../../../../../transform';
 
 const register = (req: Request, res: Response) => {
 
@@ -82,13 +82,10 @@ const register = (req: Request, res: Response) => {
                           message: 'The user has been registerd with us!',
                           response: {
                             data: {
-                              firstName: result[0]['firstname'], 
-                              lastName: result[0]['lastname'], 
-                              email: result[0]['email'], 
-                              phoneNumber: result[0]['phonenumber'],
-                              tocken: createToken(result[0]['id']),
-                              created_at:result[0]['created_at'],
-                              updated_at: result[0]['updated_at'],
+                              ...transform(result[0],
+                                ['firstname', 'lastname', 'email', 'phonenumber', 'created_at', 'updated_at']
+                              ),
+                              token: createToken(result[0]['id']),
                             }
                           },
                           status: 200
