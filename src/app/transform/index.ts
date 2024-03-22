@@ -2,7 +2,7 @@
 const transform = (dataItem, items: string[]) => {
 
     let trnasformedDataItem = {};
-    items.map((item: string) => { trnasformedDataItem[item] = dataItem?.[item] })
+    items.map((item: string) => { trnasformedDataItem[item] = dataItem?.[item] });
     return trnasformedDataItem;
 }
 

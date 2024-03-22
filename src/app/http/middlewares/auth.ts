@@ -5,8 +5,9 @@ import db from "../../setup/mysqlConnection";
 
 const verifyAuthToken = (req: Request, res: Response, next: NextFunction) => {
 
-    let token = req.cookies?.['nightlearn-token'] !== 'undefined' && req.cookies?.['nightlearn-token'] ||
-        req.headers?.authorization !== 'undefined' && req.headers?.authorization ||
+    let token = 
+        req.cookies?.['nightlearn-token'] !== 'undefined' && req.cookies?.['nightlearn-token'] // access the cookie in backend when the cookie is httponly and it doesnot send from client side
+        || req.headers?.authorization !== 'undefined' && req.headers?.authorization ||
         req.body?.token !== 'undefined' && req.body?.token || req.query?.token !== 'undefined' && req.query?.token ||
         req.headers['x-access-token'] !== 'undefined' && req.headers['x-access-token'];
 
