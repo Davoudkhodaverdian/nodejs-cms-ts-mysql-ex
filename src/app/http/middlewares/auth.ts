@@ -10,15 +10,21 @@ const verifyAuthToken = (req: Request, res: Response, next: NextFunction) => {
         req.body?.token !== 'undefined' && req.body?.token || req.query?.token !== 'undefined' && req.query?.token ||
         req.headers['x-access-token'] !== 'undefined' && req.headers['x-access-token'];
 
-    if (!token) {
-        return res.status(403).json({ status: 'fail', message: 'unauthorized' })
-    }
+        if (!token) {
+            return res.status(403).json({
+                status: 403,
+                response: { status: 'fail', message: 'unauthorized' }
+            })
+        }
 
 
     jwt.verify(token, config.secret, (error: VerifyErrors, decode: JwtPayload) => {
 
-        if (error) {
-            return res.status(422).json({ error: { message: "filed to authenticate token" } });
+         if (error) {
+            return res.status(422).json({
+                status: 422,
+                response: { error: { message: "filed to authenticate token" } }
+            })
         }
         db.query(
             `SELECT * FROM authusers WHERE LOWER(id) = LOWER(${decode.user_id});`,
@@ -36,7 +42,10 @@ const verifyAuthToken = (req: Request, res: Response, next: NextFunction) => {
                     req['result'] = result[0];
                     next();
                 } else {
-                    return res.status(422).json({ error: { message: "user not found" } });
+                    return res.status(422).json({
+                        status: 422,
+                        response: { error: { message: "user not found" } }
+                    });
                 }
             })
     })

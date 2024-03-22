@@ -9,7 +9,7 @@ const listen = (app: Express) => {
 
     app.use(cors({
         origin: process.env.NODE_ENV === 'production' ? process.env.APP_DOMAIN : `http://localhost:3000`,
-        credentials: false
+        credentials: true
     }));
     app.listen(port, () => {
         return console.log(`Express is listening at http://localhost:${port}`);
